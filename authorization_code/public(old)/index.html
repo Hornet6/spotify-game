@@ -1,0 +1,120 @@
+<!doctype html>
+<style>
+  table, th, td {
+    border:1px solid black;
+  }
+</style>
+<html>
+  <head>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script>
+      console.log("WEBPLAYBACK SCRIPT")
+      var spot
+      window.onSpotifyWebPlaybackSDKReady = () => {
+          console.log("SPOTIFY assigned")
+          var spot=Spotify
+          console.log(spot)
+      }
+      
+  </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- <script>
+      // setup()
+      var socket = io();
+    </script> -->
+    <title>Tom's garbage spotify app</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <style type="text/css">
+      #login, #loggedin {
+        display: none;
+      }
+      .text-overflow {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 500px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div id="login">
+        <h1>Tom's ugly spotify app</h1>
+        <input type="text" id="username" placeholder="Name" onchange=updateLogin()>
+        <br>
+        <a href='/login'id="loginRedirect" class="btn btn-primary">Log in with Spotify</a>
+        <!-- <a id="loginRedirect" class="btn btn-primary">Log in with Spotify</a> -->
+      </div>
+      <div id="loggedin">
+        <div id="user-profile">
+        </div>
+        <div id="oauth">
+        </div>
+        <button class="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button>
+      </div>
+    </div>
+    <script id="user-profile-template" type="text/x-handlebars-template">
+      <h1>Logged in as {{display_name}}</h1>
+      <div class="media">
+        <div class="pull-left">
+          <img class="media-object" width="150" src="{{images.0.url}}" />
+        </div>
+        <div class="media-body">
+          <dl class="dl-horizontal">
+            <dt>Display name</dt>{{name}}<dd class="clearfix"></dd>
+            <!-- <dt id="TOPITEMS">Top Tracks </dt>{{topItems}}<dd></dd> -->
+            <!-- <dt>Top Artists </dt>{{topArtists}}<dd></dd> -->
+            <!-- <dt>Spotify URI</dt><dd><a href="{{external_urls.spotify}}"></a></dd>
+            <dt>Link</dt><dd><a href="{{href}}">{{href}}</a></dd>
+            <dt>Profile Image</dt><dd class="clearfix"><a href="{{images.0.url}}">{{images.0.url}}</a></dd>
+            <dt>Country</dt><dd>{{country}}</dd> -->
+          </dl>
+        </div>
+      </div>
+    </script>
+
+    <script id="oauth-template" type="text/x-handlebars-template">
+      <h2>oAuth info</h2>
+      <dl class="dl-horizontal">
+        <dt>Access token</dt><dd class="text-overflow">{{access_token}}</dd>
+        <dt>Refresh token</dt><dd class="text-overflow">{{refresh_token}}</dd>
+      </dl>
+    </script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="music.js"></script>
+    <script>setup()</script>
+    <h1 id='usernameDisplay'>Logged in as:</h1>
+    <h3>Change Settings:</h6>
+    <br>
+    <select name="time span" id="time">
+      <option value="long_term">All time</option>
+      <option value="medium_term">Last 6 months</option>
+      <option value="short_term">Last 4 weeks</option>
+    </select>
+    <label for="songNum">Number of songs per person</label>
+    <input type="text" id="songNum" name="number of songs" value=20>
+    <a id="songNumButton" onclick="sendSettings()" class="btn btn-primary">Update Settings</a>
+    <br>
+    <h3>Current Settings:</h6>
+    <br>
+    <p>time period:</p>
+    <p id="currentTime"></p>
+    <p>songs per person:</p>
+    <p id="currentSongNum"></p>
+    <a onclick="startGame()" class="btn btn-primary">Start Game</a>
+    <h1 id="timer">0</h1>
+    <div id="tableDiv">
+      <table id= "resultsTable" style="width:100%">
+
+      </table>
+    </div>
+    <h1>Spotify Web Playback SDK Quick Start</h1>
+    <button id="togglePlay">Toggle Play</button>
+
+  </body>
+
+</html>
+

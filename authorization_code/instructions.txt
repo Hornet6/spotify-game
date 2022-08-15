@@ -1,0 +1,6 @@
+Hello Tom,
+you made this really badly but hopefully it works.
+the stuff outside the "game" folder is for setting up the game
+i.e. getting the top songs of each player and putting it into a file and a playlist
+the game folder should be used after to play the game.
+good luck trying to use this garbage
